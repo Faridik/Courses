@@ -7,20 +7,25 @@
 
 CourceView::CourceView(QWidget *parent) : QWidget(parent)
 {
-    QHBoxLayout *l = new QHBoxLayout();
-    QLabel *image = new QLabel();
-    QLabel *text = new QLabel();
+    auto *l = new QHBoxLayout();
+    _image = new QLabel();
+    _text = new QLabel();
 
-    QPixmap pixmap;
-    bool status = pixmap.load(":/images/123.png");
-
-    if (status)
-        image->setPixmap(pixmap);
-
-
-    text->setText("Great description");
-
-    l->addWidget(image);
-    l->addWidget(text);
+    l->addWidget(_image);
+    l->addWidget(_text);
     setLayout(l);
+}
+
+void CourceView::setCourse(const QString &imagePath, const QString &text)
+{
+    QPixmap pixmap;
+    pixmap.load(imagePath);
+    _image->setPixmap(pixmap);
+
+    _text->setText(text);
+}
+
+void CourceView::mousePressEvent(QMouseEvent *)
+{
+    /// TODO - обрабатываем клик
 }

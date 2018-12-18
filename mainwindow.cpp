@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "coursesdialog.h"
+#include "filterdialog.h"
 #include "signindialog.h"
 #include "registrationdialog.h"
-#include "filterdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    courses(NULL),
     profile(NULL)
 {
     ui->setupUi(this);
@@ -22,10 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::openCoursesWindow()
 {
-    courses = new coursesWindow();
-    connect(courses,SIGNAL(back()),this,SLOT(backFromCourses()));
-    this->hide();
-    courses->show();
+    CoursesDialog dialog{this};
+    dialog.exec();
 }
 
 void MainWindow::openLoginWindow()
@@ -58,15 +56,6 @@ void MainWindow::openFilterWindow()
     }
 }
 
-
-void MainWindow::backFromCourses()
-{
-    this->show();
-    courses->hide();
-    delete courses;
-    courses=NULL;
-}
-
 void MainWindow::backFromProfile()
 {
     this->show();
@@ -77,7 +66,6 @@ void MainWindow::backFromProfile()
 
 MainWindow::~MainWindow()
 {
-    if (courses) delete courses;
     if (profile) delete profile;
     delete ui;
 }
