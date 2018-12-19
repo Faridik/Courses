@@ -5,6 +5,7 @@
 #include <QPushButton>
 
 #include "courseview.h"
+#include "filterdialog.h"
 
 CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{parent},
     _filters{filters},
@@ -21,21 +22,40 @@ CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
     auto *hbox = new QBoxLayout{QBoxLayout::LeftToRight};
 
+    auto *filtersButton = new QPushButton{tr("Поиск курсов")};
+    connect(filtersButton, &QPushButton::clicked, this, [=]()
+    {
+        FilterDialog dialog{this};
+
+        if (dialog.exec() == QDialog::Accepted)
+        {
+            this->applyFilters(dialog.filters());
+            this->showPage(0);
+        }
+    });
+
+    hbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
+    hbox->addWidget(filtersButton);
+
+    vbox->addLayout(hbox);
+
     auto *forward  = new QPushButton{tr("Следующие")};
     auto *backward = new QPushButton{tr("Предыдущие")};
 
     connect(backward, &QPushButton::clicked, this, [=]()
     {
-       this->showPage(_page + 1);
+        this->showPage(_page + 1);
     });
 
     connect(forward, &QPushButton::clicked, this, [=]()
     {
-       this->showPage(_page - 1);
+        this->showPage(_page - 1);
     });
 
     auto *homeButton = new QPushButton(tr("Вернуться"));
     connect(homeButton, &QPushButton::clicked, this, &QDialog::reject);
+
+    hbox = new QBoxLayout{QBoxLayout::LeftToRight};
 
     hbox->addWidget(homeButton);
     hbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding});
@@ -55,6 +75,11 @@ CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{
     setModal(true);
     setMinimumSize(640, 480);
     setWindowTitle(tr("Популярные курсы"));
+}
+
+void CoursesDialog::applyFilters(const Filters &filters)
+{
+    /// TODO - магия бд тут
 }
 
 void CoursesDialog::showPage(qint32 p)

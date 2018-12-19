@@ -14,6 +14,8 @@ public:
 
     CoursesDialog(const Filters &filters, QWidget *parent = nullptr);
 
+
+    void applyFilters(const Filters &filters);
     void showPage(qint32 p);
 
 private:

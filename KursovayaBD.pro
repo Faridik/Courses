@@ -23,25 +23,24 @@ UI_HEADERS_DIR = build/ui
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        profilewindow.cpp \
         signindialog.cpp \
     registrationdialog.cpp \
     filterdialog.cpp \
     courcesdialog.cpp \
-    courseview.cpp
+    courseview.cpp \
+    profilesdialog.cpp
 
 HEADERS += \
         mainwindow.h \
-        profilewindow.h \
         signindialog.h \
     registrationdialog.h \
     filterdialog.h \
     coursesdialog.h \
-    courseview.h
+    courseview.h \
+    profilesdialog.h
 
 FORMS += \
-        mainwindow.ui \        
-        profilewindow.ui
+        mainwindow.ui         
 
 RESOURCES += \
     images.qrc

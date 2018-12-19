@@ -5,6 +5,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 
+#include "registrationdialog.h"
+
 SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
 {
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
@@ -27,6 +29,18 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
         signin(login->text(), pass->text());
     });
 
+    auto *registerButton = new QPushButton{tr("Регистрация")};
+
+    // при нажатии на вход - пытаемся войти
+    connect(registerButton, &QPushButton::clicked, this, [=]()
+    {
+        RegistrationDialog dialog{this};
+
+        if (dialog.exec() == QDialog::Accepted)
+            this->accept();
+    });
+
+
 
     auto *homeButton = new QPushButton{tr("Вернуться")};
     connect(homeButton, &QPushButton::clicked, this, &QDialog::reject);
@@ -36,6 +50,7 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     vbox->addWidget(login);
     vbox->addWidget(pass);    
     vbox->addWidget(signinButton);
+    vbox->addWidget(registerButton);
     vbox->addWidget(homeButton);
     vbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
 

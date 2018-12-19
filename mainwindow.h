@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "profilewindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,16 +18,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    profileWindow *profile;    
 
 public slots:
     void openCoursesWindow();
     void openProfile();
     void openLoginWindow();
-    void openSigninWindow();
-    void openFilterWindow();
-
-    void backFromProfile();
+    void openSigninWindow();    
 };
 
 #endif // MAINWINDOW_H

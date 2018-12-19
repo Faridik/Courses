@@ -81,21 +81,25 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
     sortFilters->setChecked(false);
     sortFilters->setLayout(vbox);
 
-    auto *apply = new QPushButton{tr("Применить")};
+
 
     auto *hbox = new QBoxLayout{QBoxLayout::LeftToRight};
+    hbox->addWidget(searchFilters);
+    hbox->addWidget(sortFilters);
+
+    vbox = new QBoxLayout{QBoxLayout::TopToBottom};
+    vbox->addLayout(hbox);
+
+    hbox = new QBoxLayout{QBoxLayout::LeftToRight};
     hbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
 
-
+    auto *apply = new QPushButton{tr("Применить")};
     auto *cancel = new QPushButton{tr("Отмена")};
     connect(cancel, &QPushButton::clicked, this, &QDialog::reject);
 
     hbox->addWidget(cancel);
     hbox->addWidget(apply);
 
-    vbox = new QBoxLayout{QBoxLayout::TopToBottom};
-    vbox->addWidget(searchFilters);
-    vbox->addWidget(sortFilters);
     vbox->addLayout(hbox);
 
     connect(apply, &QPushButton::clicked, this, [=]()

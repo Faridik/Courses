@@ -3,22 +3,21 @@
 
 #include "coursesdialog.h"
 #include "filterdialog.h"
-#include "signindialog.h"
+#include "profilesdialog.h"
 #include "registrationdialog.h"
+#include "signindialog.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    profile(NULL)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     connect(ui->coursesButton, SIGNAL(pressed()),this, SLOT(openCoursesWindow()));
     connect(ui->loginButton, SIGNAL(pressed()),this, SLOT(openLoginWindow()));
     connect(ui->profileButton, SIGNAL(pressed()),this, SLOT(openProfile()));
-    connect(ui->signinButton, SIGNAL(pressed()),this, SLOT(openSigninWindow()));
-    connect(ui->filterButton, SIGNAL(pressed()),this, SLOT(openFilterWindow()));
+    connect(ui->signinButton, SIGNAL(pressed()),this, SLOT(openSigninWindow()));    
 }
-
 
 void MainWindow::openCoursesWindow()
 {
@@ -40,33 +39,20 @@ void MainWindow::openSigninWindow()
 
 void MainWindow::openProfile()
 {
-    profile = new profileWindow();
-    connect(profile,SIGNAL(back()),this,SLOT(backFromProfile()));
-    this->hide();
-    profile->show();
-}
-
-void MainWindow::openFilterWindow()
-{
-    FilterDialog dialog{this};
-
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        CoursesDialog cources{dialog.filters(), this};
-        cources.exec();
-    }
-}
-
-void MainWindow::backFromProfile()
-{
-    this->show();
-    profile->hide();
-    delete profile;
-    profile = NULL;
+    /// TODO - fill profile
+    Profile profile;
+    profile.firstName = "lol";
+    profile.editable = true;
+    ProfilesDialog dialog{profile, this};
+    dialog.exec();
 }
 
 MainWindow::~MainWindow()
 {
-    if (profile) delete profile;
     delete ui;
+}
+
+void MainWindow::signOut()
+{
+    /// TODO - сделать реализацию выхода из профиля
 }
