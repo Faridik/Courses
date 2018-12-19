@@ -20,6 +20,7 @@ private:
     Ui::MainWindow *ui;
 
 public slots:
+    void signOut();
     void openCoursesWindow();
     void openProfile();
     void openLoginWindow();

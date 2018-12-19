@@ -41,7 +41,6 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     });
 
 
-
     auto *homeButton = new QPushButton{tr("Вернуться")};
     connect(homeButton, &QPushButton::clicked, this, &QDialog::reject);
 

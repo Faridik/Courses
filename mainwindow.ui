@@ -134,6 +134,30 @@
      <string>Пройдите курсы от ведущих университетов страны </string>
     </property>
    </widget>
+   <widget class="QPushButton" name="exitButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>20</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Выход</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -141,7 +165,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

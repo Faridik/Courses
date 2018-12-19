@@ -14,7 +14,7 @@
 
 FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
 {
-    auto *titleOption = new QCheckBox{tr("Название:")};
+    auto *titleOption = new QCheckBox{tr("Название:")}; /// auto - чтоб не писать тип самому
     auto *titleFilter = new QLineEdit{};
     titleFilter->setEnabled(false);
     connect(titleOption, &QCheckBox::toggled, titleFilter, &QLineEdit::setEnabled);
@@ -54,6 +54,7 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
     auto *dateFilter = new QDateEdit{};
     dateFilter->setEnabled(false);
     connect(dateOption, &QCheckBox::toggled, dateFilter, &QDateEdit::setEnabled);
+    //connect(dateOption, SIGNAL(toggled(bool))), dateFilter, SLOT(setEnabled(bool));
 
     grid->addWidget(dateOption, row, 0);
     grid->addWidget(dateFilter, row, 1);
@@ -64,7 +65,7 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
 
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
 
-    auto *sortByTitle  = new QRadioButton{tr("По названию")};
+    auto *sortByTitle  = new QRadioButton{tr("По названию")};/// нажат может быть только 1 чекбокс
     auto *sortByAuthor = new QRadioButton{tr("По автору")};
     auto *sortByDate   = new QRadioButton{tr("По дате")};
     auto *sortByViews  = new QRadioButton{tr("По числу просмотров")};
@@ -77,7 +78,7 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
     vbox->addWidget(sortByRating);
 
     auto *sortFilters = new QGroupBox{tr("Настройки сортировки:")};
-    sortFilters->setCheckable(true);
+    sortFilters->setCheckable(true); /// включаем настройки для сортировкии
     sortFilters->setChecked(false);
     sortFilters->setLayout(vbox);
 
@@ -96,13 +97,14 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
     auto *apply = new QPushButton{tr("Применить")};
     auto *cancel = new QPushButton{tr("Отмена")};
     connect(cancel, &QPushButton::clicked, this, &QDialog::reject);
+    /// то же самое - connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
 
     hbox->addWidget(cancel);
     hbox->addWidget(apply);
 
     vbox->addLayout(hbox);
 
-    connect(apply, &QPushButton::clicked, this, [=]()
+    connect(apply, &QPushButton::clicked, this, [=]()  /// Лямбда выражение
     {
          _filters.title  = titleOption->isChecked() ? titleFilter->text() : "";
          _filters.author = authorOption->isChecked() ? authorFilter->text() : "";
@@ -128,8 +130,9 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
         this->accept();
     });   
 
-    setLayout(vbox);
+    setLayout(vbox); /// автоматическое растягивание
 
     setWindowTitle(tr("Поиск курсов"));
-    setModal(true);
+    setModal(true);    /// модальность = нажимаем только на диалог сверху
+
 }

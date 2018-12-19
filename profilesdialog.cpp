@@ -52,7 +52,7 @@ ProfilesDialog::ProfilesDialog(const Profile &profile, QWidget *parent) : QDialo
     grid->addWidget(_email, row, 1);
     row++;
 
-    if (_profile.editable)
+    if (_profile.editable)     /// если наш профиль то можем редак
     {
         auto *edit = new QPushButton{tr("Редактировать")};
         grid->addWidget(edit, row++, 1);

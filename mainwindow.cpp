@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->signinButton, SIGNAL(pressed()),this, SLOT(openSigninWindow()));    
 }
 
-void MainWindow::openCoursesWindow()
-{
+void MainWindow::openCoursesWindow()   ///Область видимости диалога - {}
+{                                     ///exec - открытие
     CoursesDialog dialog{{},this};
     dialog.exec();
 }
@@ -41,7 +41,6 @@ void MainWindow::openProfile()
 {
     /// TODO - fill profile
     Profile profile;
-    profile.firstName = "lol";
     profile.editable = true;
     ProfilesDialog dialog{profile, this};
     dialog.exec();

@@ -82,7 +82,7 @@ void CoursesDialog::applyFilters(const Filters &filters)
     /// TODO - магия бд тут
 }
 
-void CoursesDialog::showPage(qint32 p)
+void CoursesDialog::showPage(qint32 p)   /// заполнение по 6 шт
 {
     auto itemsCount = 17; /// TODO - тяните из бд, чисто для примера
     auto max = itemsCount / _viewsPerPage + 1;
