@@ -3,17 +3,22 @@
 #include <QDialog>
 #include <QGridLayout>
 
+#include "filterdialog.h"
+
+
 class CoursesDialog : public QDialog
 {
     Q_OBJECT
 
 public:
 
-    CoursesDialog(QWidget *parent = nullptr);
+    CoursesDialog(const Filters &filters, QWidget *parent = nullptr);
 
     void showPage(qint32 p);
 
 private:
+
+    Filters _filters;
 
     QGridLayout *_grid;
 

@@ -85,48 +85,47 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
 
     auto *hbox = new QBoxLayout{QBoxLayout::LeftToRight};
     hbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
+
+
+    auto *cancel = new QPushButton{tr("Отмена")};
+    connect(cancel, &QPushButton::clicked, this, &QDialog::reject);
+
+    hbox->addWidget(cancel);
     hbox->addWidget(apply);
 
     vbox = new QBoxLayout{QBoxLayout::TopToBottom};
     vbox->addWidget(searchFilters);
     vbox->addWidget(sortFilters);
     vbox->addLayout(hbox);
-    vbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
-
-
-    auto *table = new QTableView{};
-
 
     connect(apply, &QPushButton::clicked, this, [=]()
     {
-        /// TODO - здесь перебираем наши фильтры и заполняем запрос или что там
-        ///
-        /// например:
-        /// if (titleOption->isChecked())
-        /// {
-        ///     auto title = titleFilter->text();
-        ///    // пихаем куда то
-        /// }
-    });
+         _filters.title  = titleOption->isChecked() ? titleFilter->text() : "";
+         _filters.author = authorOption->isChecked() ? authorFilter->text() : "";
+         _filters.tags = tagsOption->isChecked() ? tagsFilter->text() : "";
+         _filters.date = dateOption->isChecked() ? dateFilter->date() : QDate{};
 
-    hbox = new QBoxLayout{QBoxLayout::LeftToRight};
-    hbox->addWidget(table, 1);
-    hbox->addLayout(vbox);
+         _filters.sort = SortBy::Nothing;
 
-    vbox = new QBoxLayout{QBoxLayout::TopToBottom};
-    vbox->addLayout(hbox);
+         if (searchFilters->isChecked())
+         {
+             if (sortByTitle)
+                 _filters.sort = SortBy::Title;
+             else if (sortByAuthor)
+                 _filters.sort = SortBy::Author;
+             else if (sortByDate)
+                 _filters.sort = SortBy::Date;
+             else if (sortByViews)
+                 _filters.sort = SortBy::Views;
+             else if (sortByRating)
+                 _filters.sort = SortBy::Rating;
+         }
 
-    auto *homeButton = new QPushButton{tr("Вернуться")};
-    connect(homeButton, &QPushButton::clicked, this, &QDialog::reject);
+        this->accept();
+    });   
 
-    hbox = new QBoxLayout{QBoxLayout::LeftToRight};
-    hbox->addWidget(homeButton);
-    hbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding});
-
-    vbox->addLayout(hbox);
     setLayout(vbox);
 
     setWindowTitle(tr("Поиск курсов"));
     setModal(true);
-    setMinimumSize(640, 480);
 }

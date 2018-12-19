@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::openCoursesWindow()
 {
-    CoursesDialog dialog{this};
+    CoursesDialog dialog{{},this};
     dialog.exec();
 }
 
@@ -52,7 +52,8 @@ void MainWindow::openFilterWindow()
 
     if (dialog.exec() == QDialog::Accepted)
     {
-        /// TODO - применяем фильтры
+        CoursesDialog cources{dialog.filters(), this};
+        cources.exec();
     }
 }
 

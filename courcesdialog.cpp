@@ -6,7 +6,8 @@
 
 #include "courseview.h"
 
-CoursesDialog::CoursesDialog(QWidget *parent) : QDialog{parent},
+CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{parent},
+    _filters{filters},
     _page{0},
     _viewsPerPage{6} /// TODO - сколько на 1й странице курсов, должно быть четным, очевидно
 {
@@ -44,6 +45,8 @@ CoursesDialog::CoursesDialog(QWidget *parent) : QDialog{parent},
     vbox->addLayout(_grid, 1);
     vbox->addSpacerItem(new QSpacerItem{0, 0, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding});
     vbox->addLayout(hbox, 0);
+
+    /// TODO - запрос в бд чего показывать
 
     showPage(0);
 
