@@ -85,7 +85,7 @@ CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{
 
 void CoursesDialog::applyFilters(const Filters &filters)
 {
-	/// TODO - магия бд тут
+	/// TODO - магия бд тут +
 	QString from;
 	bool prev = false;
 
