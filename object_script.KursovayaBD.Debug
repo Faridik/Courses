@@ -8,6 +8,7 @@ INPUT(
 ./build/obj/courseview.o
 ./build/obj/profilesdialog.o
 ./build/obj/courcesinfo.o
+./build/obj/studydialog.o
 ./build/obj/qrc_images.o
 ./build/obj/moc_mainwindow.o
 ./build/obj/moc_signindialog.o
@@ -16,4 +17,6 @@ INPUT(
 ./build/obj/moc_coursesdialog.o
 ./build/obj/moc_courseview.o
 ./build/obj/moc_profilesdialog.o
+./build/obj/moc_courcesinfo.o
+./build/obj/moc_studydialog.o
 );

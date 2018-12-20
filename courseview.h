@@ -21,5 +21,9 @@ private:
 
     QLabel *_image;
     QLabel *_text;
+
+signals:
+    alarm(int num);
+
 };
 

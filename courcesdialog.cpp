@@ -6,6 +6,7 @@
 
 #include "courseview.h"
 #include "filterdialog.h"
+#include "courcesinfo.h"
 
 CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{parent},
     _filters{filters},
@@ -16,7 +17,9 @@ CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{
 
     for (auto i = 0; i < _viewsPerPage; i++)
     {
-        _grid->addWidget(new CourceView{}, i / 2, i % 2);
+         auto *ptr = new CourceView{};
+        _grid->addWidget(ptr,i/2,i%2);
+        connect(ptr,SIGNAL(alarm(int)),this,SLOT(OpenCourse(int)));
     }
 
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
@@ -51,6 +54,8 @@ CoursesDialog::CoursesDialog(const Filters &filters, QWidget *parent) : QDialog{
     {
         this->showPage(_page - 1);
     });
+
+
 
     auto *homeButton = new QPushButton(tr("Вернуться"));
     connect(homeButton, &QPushButton::clicked, this, &QDialog::reject);
@@ -106,6 +111,16 @@ void CoursesDialog::showPage(qint32 p)   /// заполнение по 6 шт
             /// TODO - пока чисто символически
             item->setCourse("", "");
             item->setEnabled(false);
-        }
+        }        
     }
+
+
+}
+
+void CoursesDialog::OpenCourse(int num)
+{
+    /// По индексу (из базы)num берем и открываем из бд нужный курс
+    this->close();
+    CourcesInfo *cource = new CourcesInfo;
+    cource->show();
 }

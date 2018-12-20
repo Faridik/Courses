@@ -29,7 +29,8 @@ SOURCES += \
     courcesdialog.cpp \
     courseview.cpp \
     profilesdialog.cpp \
-    courcesinfo.cpp
+    courcesinfo.cpp \
+    studydialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     coursesdialog.h \
     courseview.h \
     profilesdialog.h \
-    courcesinfo.h
+    courcesinfo.h \
+    studydialog.h
 
 FORMS += \
         mainwindow.ui         

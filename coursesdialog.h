@@ -18,6 +18,10 @@ public:
     void applyFilters(const Filters &filters);
     void showPage(qint32 p);
 
+public slots:
+    void OpenCourse(int num);
+
+
 private:
 
     Filters _filters;

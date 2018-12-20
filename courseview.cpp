@@ -27,5 +27,6 @@ void CourceView::setCourse(const QString &imagePath, const QString &text)
 
 void CourceView::mousePressEvent(QMouseEvent *)
 {
-    /// TODO - обрабатываем клик
+    int n;
+    emit alarm(n);
 }

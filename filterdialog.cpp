@@ -135,4 +135,5 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
     setWindowTitle(tr("Поиск курсов"));
     setModal(true);    /// модальность = нажимаем только на диалог сверху
 
+
 }
