@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include <QGridLayout>
+#include <QtSql/QSqlQuery>
 
 #include "filterdialog.h"
 
@@ -23,6 +24,10 @@ private:
     Filters _filters;
 
     QGridLayout *_grid;
+
+	QSqlQuery query;
+
+	qint32 itemsCount;
 
     qint32 _page;
     qint32 _viewsPerPage;

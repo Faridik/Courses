@@ -74,29 +74,37 @@ void RegistrationDialog::registerNewUser(int *userid, const RegistrationDialog::
 {
 	Q_UNUSED(user);
 
-	//проверка на правильность введённого
+	///проверка на правильность введённого, пароль мб
 
-	//проверка на существование такого логина
+	QSqlQuery query;
+	query.exec(QString("SELECT id FROM users_con WHERE login = '") + user.login + QString("'"));
+	query.next();
+	if (query.value(0).toInt())
+	{
+		///такой логин существует
+	}
+	else
 	{
 		qsrand(QTime::currentTime().msec());
 
-
+		//генерация соли
 		QString salt = "\0";
 		for (int i = 0; i < 5 + qrand() % 6; ++i)
 			salt += QChar(33 + qrand() % 94);
 		QString pass = user.pass + salt;
 
-		QSqlQuery query;
+		//ввод логина, хеш пароля и соли
 		query.exec(QString("INSERT INTO users_con (login, pass, salt) VALUES ('") +
 			user.login + QString("', '") +
 			QCryptographicHash::hash(pass.toUtf8(), QCryptographicHash::Sha256).toHex() +
 			QString("', '") + salt + QString("')"));
 
+		//вывод id из бд
 		query.exec(QString("SELECT id FROM users_con WHERE login = '") + user.login + QString("'"));
 		query.next();
 		*userid = query.value(0).toInt();
 
-
+		//ввод дополнительных данных
 		query.exec(QString("INSERT INTO users (id, firstname, lastname, creationdate, email) VALUES (") +
 			QString::number(*userid) + QString(", '") +
 			user.firstName + QString("', '") +
@@ -105,5 +113,4 @@ void RegistrationDialog::registerNewUser(int *userid, const RegistrationDialog::
 
 		accept();
 	}
-	//insert в users время регистрации
 }

@@ -113,7 +113,7 @@ FilterDialog::FilterDialog(QWidget *parent) : QDialog{parent}
 
          _filters.sort = SortBy::Nothing;
 
-         if (searchFilters->isChecked())
+         if (sortFilters->isChecked())
          {
              if (sortByTitle)
                  _filters.sort = SortBy::Title;
