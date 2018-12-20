@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'filterdialog.h'
+** Meta object code from reading C++ file 'profilesdialog.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../filterdialog.h"
+#include "../../profilesdialog.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'filterdialog.h' doesn't include <QObject>."
+#error "The header file 'profilesdialog.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,25 +20,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_FilterDialog_t {
+struct qt_meta_stringdata_ProfilesDialog_t {
     QByteArrayData data[1];
-    char stringdata0[13];
+    char stringdata0[15];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_FilterDialog_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_ProfilesDialog_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_FilterDialog_t qt_meta_stringdata_FilterDialog = {
+static const qt_meta_stringdata_ProfilesDialog_t qt_meta_stringdata_ProfilesDialog = {
     {
-QT_MOC_LITERAL(0, 0, 12) // "FilterDialog"
+QT_MOC_LITERAL(0, 0, 14) // "ProfilesDialog"
 
     },
-    "FilterDialog"
+    "ProfilesDialog"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_FilterDialog[] = {
+static const uint qt_meta_data_ProfilesDialog[] = {
 
  // content:
        7,       // revision
@@ -54,7 +54,7 @@ static const uint qt_meta_data_FilterDialog[] = {
        0        // eod
 };
 
-void FilterDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void ProfilesDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -62,26 +62,26 @@ void FilterDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject FilterDialog::staticMetaObject = {
-    { &QDialog::staticMetaObject, qt_meta_stringdata_FilterDialog.data,
-      qt_meta_data_FilterDialog,  qt_static_metacall, nullptr, nullptr}
+QT_INIT_METAOBJECT const QMetaObject ProfilesDialog::staticMetaObject = {
+    { &QDialog::staticMetaObject, qt_meta_stringdata_ProfilesDialog.data,
+      qt_meta_data_ProfilesDialog,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *FilterDialog::metaObject() const
+const QMetaObject *ProfilesDialog::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *FilterDialog::qt_metacast(const char *_clname)
+void *ProfilesDialog::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_FilterDialog.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ProfilesDialog.stringdata0))
         return static_cast<void*>(this);
     return QDialog::qt_metacast(_clname);
 }
 
-int FilterDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int ProfilesDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QDialog::qt_metacall(_c, _id, _a);
     return _id;

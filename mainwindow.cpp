@@ -13,10 +13,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+	ui->exitButton->setVisible(false);
+
     connect(ui->coursesButton, SIGNAL(pressed()),this, SLOT(openCoursesWindow()));
     connect(ui->loginButton, SIGNAL(pressed()),this, SLOT(openLoginWindow()));
     connect(ui->profileButton, SIGNAL(pressed()),this, SLOT(openProfile()));
-    connect(ui->signinButton, SIGNAL(pressed()),this, SLOT(openSigninWindow()));    
+    connect(ui->signinButton, SIGNAL(pressed()),this, SLOT(openSigninWindow()));  
+	connect(ui->signinButton, SIGNAL(pressed()), this, SLOT(openSigninWindow()));
+	connect(ui->exitButton, SIGNAL(pressed()), this, SLOT(signOut()));
+
+	db = new(sqldb);
+	user = "guest";
 }
 
 void MainWindow::openCoursesWindow()   ///Область видимости диалога - {}
@@ -28,13 +35,27 @@ void MainWindow::openCoursesWindow()   ///Область видимости ди
 void MainWindow::openLoginWindow()
 {
     SignInDialog dialog{this};
-    dialog.exec();
+	dialog.setUserName(&user);
+	if (dialog.exec() == QDialog::Accepted)
+	{
+		ui->profileButton->setEnabled(true);
+		ui->exitButton->setVisible(true);
+		ui->exitButton->setEnabled(true);
+		ui->loginButton->setEnabled(false);
+		ui->loginButton->setVisible(false);
+
+		//connect in db
+	}
 }
 
 void MainWindow::openSigninWindow()
 {
     RegistrationDialog dialog{this};
-    dialog.exec();
+	
+	if (dialog.exec() == QDialog::Accepted)
+	{
+
+	}
 }
 
 void MainWindow::openProfile()
@@ -53,5 +74,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::signOut()
 {
+	user = "guest";
+	//disconnect from bd
+	ui->profileButton->setEnabled(false);
+	ui->loginButton->setEnabled(true);
+	ui->loginButton->setVisible(true);
+	ui->exitButton->setVisible(false);
+	ui->exitButton->setEnabled(false);
     /// TODO - сделать реализацию выхода из профиля
 }

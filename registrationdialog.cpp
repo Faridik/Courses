@@ -4,6 +4,9 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QCryptographicHash>
+#include <QtSql/QSqlQuery>
+#include <Qtime>
 
 RegistrationDialog::RegistrationDialog(QWidget *parent) : QDialog{parent}
 {
@@ -71,7 +74,25 @@ void RegistrationDialog::registerNewUser(const RegistrationDialog::User &user)
 {
     Q_UNUSED(user);
 
-    /// TODO - пишем в бд
+	//проверка на правильность введённого
+
+	//проверка на существование такого логина
+	
+	qsrand(QTime::currentTime().msec());
+	QSqlQuery query;
+	QString salt = "\0";
+	for (int i = 0; i < 5 + qrand() % 6; ++i)
+		salt += QChar(33 + qrand() % 94);
+	QString pass = user.pass + salt;
+	query.exec(QString("INSERT INTO users_con (login, pass, email, salt) VALUES ('") +
+		user.login + QString("', '") +
+		QCryptographicHash::hash(pass.toUtf8(), QCryptographicHash::Sha256).toHex() +
+		QString("', '") + user.email +
+		QString("', '") + salt + QString("')"));
+
+	//insert в users
+	//туда же время
+
     auto success = true;
 
     if (success)

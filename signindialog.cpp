@@ -4,6 +4,8 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QCryptographicHash>
+#include <QtSql/QSqlQuery>
 
 #include "registrationdialog.h"
 
@@ -65,22 +67,35 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     setModal(true);
 }
 
+void SignInDialog::setUserName(QString * un)
+{
+	username = un;
+}
+
+
 void SignInDialog::signin(const QString &login, const QString &pass)
 {
     Q_UNUSED(login);
     Q_UNUSED(pass);
 
-    /// TODO здесь обращаемся в БД, проверяем все и тд
-
-    auto success = true;
-
-    if (success)
-    {
-        /// TODO помечаем что где надо
-        accept();
-    }
-    else
-    {
-        /// TODO помечаем поля с ошибками
-    }
+	QSqlQuery query;
+	query.exec(QString("SELECT * FROM users_con WHERE login = '") + login + QString("'"));
+	if (query.next())
+	{
+		if (QCryptographicHash::hash((pass + query.value("salt").toString()).toUtf8(), QCryptographicHash::Sha256).toHex()
+			== query.value("pass").toString().toUtf8())
+		{
+			// подключился
+			*username = login;
+			accept();
+		}
+		else
+		{
+			/// TODO неверный логин или пароль
+		}
+	}
+	else
+	{
+		/// TODO пользователь с таким логином не найден
+	}
 }

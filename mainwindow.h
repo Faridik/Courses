@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "sqldb.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+	QString user;
+	sqldb *db;
 
 public slots:
     void signOut();

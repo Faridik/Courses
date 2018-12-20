@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT     += core gui
+QT     += sql
 CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -28,7 +29,8 @@ SOURCES += \
     filterdialog.cpp \
     courcesdialog.cpp \
     courseview.cpp \
-    profilesdialog.cpp
+    profilesdialog.cpp \
+    sqldb.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,7 +39,8 @@ HEADERS += \
     filterdialog.h \
     coursesdialog.h \
     courseview.h \
-    profilesdialog.h
+    profilesdialog.h \
+    sqldb.h
 
 FORMS += \
         mainwindow.ui         
