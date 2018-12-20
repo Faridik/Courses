@@ -7,6 +7,7 @@ INPUT(
 ./build/obj/courcesdialog.o
 ./build/obj/courseview.o
 ./build/obj/profilesdialog.o
+./build/obj/courcesinfo.o
 ./build/obj/qrc_images.o
 ./build/obj/moc_mainwindow.o
 ./build/obj/moc_signindialog.o
