@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RegistrationDialog_t {
-    QByteArrayData data[5];
-    char stringdata0[46];
+    QByteArrayData data[7];
+    char stringdata0[58];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,14 @@ static const qt_meta_stringdata_RegistrationDialog_t qt_meta_stringdata_Registra
 QT_MOC_LITERAL(0, 0, 18), // "RegistrationDialog"
 QT_MOC_LITERAL(1, 19, 15), // "registerNewUser"
 QT_MOC_LITERAL(2, 35, 0), // ""
-QT_MOC_LITERAL(3, 36, 4), // "User"
-QT_MOC_LITERAL(4, 41, 4) // "user"
+QT_MOC_LITERAL(3, 36, 4), // "int*"
+QT_MOC_LITERAL(4, 41, 6), // "userid"
+QT_MOC_LITERAL(5, 48, 4), // "User"
+QT_MOC_LITERAL(6, 53, 4) // "user"
 
     },
     "RegistrationDialog\0registerNewUser\0\0"
-    "User\0user"
+    "int*\0userid\0User\0user"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,10 +59,10 @@ static const uint qt_meta_data_RegistrationDialog[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x0a /* Public */,
+       1,    2,   19,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3, 0x80000000 | 5,    4,    6,
 
        0        // eod
 };
@@ -71,7 +73,7 @@ void RegistrationDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         RegistrationDialog *_t = static_cast<RegistrationDialog *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->registerNewUser((*reinterpret_cast< const User(*)>(_a[1]))); break;
+        case 0: _t->registerNewUser((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< const User(*)>(_a[2]))); break;
         default: ;
         }
     }

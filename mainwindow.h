@@ -19,7 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-	QString user;
+	int userid;
 	sqldb *db;
 
 public slots:

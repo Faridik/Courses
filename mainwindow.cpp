@@ -7,6 +7,8 @@
 #include "registrationdialog.h"
 #include "signindialog.h"
 
+#include <QtSql/QSqlQuery>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->exitButton, SIGNAL(pressed()), this, SLOT(signOut()));
 
 	db = new(sqldb);
-	user = "guest";
+	userid = 0;
+	if (userid) db->connectFromUser();
+	else db->connect();
 }
 
 void MainWindow::openCoursesWindow()   ///Область видимости диалога - {}
@@ -34,8 +38,7 @@ void MainWindow::openCoursesWindow()   ///Область видимости ди
 
 void MainWindow::openLoginWindow()
 {
-    SignInDialog dialog{this};
-	dialog.setUserName(&user);
+    SignInDialog dialog{&userid, this};
 	if (dialog.exec() == QDialog::Accepted)
 	{
 		ui->profileButton->setEnabled(true);
@@ -44,25 +47,46 @@ void MainWindow::openLoginWindow()
 		ui->loginButton->setEnabled(false);
 		ui->loginButton->setVisible(false);
 
-		//connect in db
+		db->disconnect();
+		db->connectFromUser();
 	}
 }
 
 void MainWindow::openSigninWindow()
 {
-    RegistrationDialog dialog{this};
-	
+    RegistrationDialog dialog{&userid, this};
 	if (dialog.exec() == QDialog::Accepted)
 	{
+		ui->profileButton->setEnabled(true);
+		ui->exitButton->setVisible(true);
+		ui->exitButton->setEnabled(true);
+		ui->loginButton->setEnabled(false);
+		ui->loginButton->setVisible(false);
 
+		db->disconnect();
+		db->connectFromUser();
 	}
 }
 
 void MainWindow::openProfile()
 {
     /// TODO - fill profile
+	QSqlQuery query;
+	query.exec(QString("SELECT * FROM users WHERE id = ") + QString::number(userid));
+	query.next();
+
+
     Profile profile;
+	profile.email = query.value("email").toString();
+	profile.firstName = query.value("firstname").toString();
+	profile.lastName = query.value("lastname").toString();
     profile.editable = true;
+
+	query.exec(QString("SELECT * FROM users_con WHERE id = ") + QString::number(userid));
+	query.next();
+	
+	profile.login = query.value("login").toString();
+
     ProfilesDialog dialog{profile, this};
     dialog.exec();
 }
@@ -74,8 +98,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::signOut()
 {
-	user = "guest";
-	//disconnect from bd
+	userid = 0;
+	db->disconnect();
+	db->connect();
+
 	ui->profileButton->setEnabled(false);
 	ui->loginButton->setEnabled(true);
 	ui->loginButton->setVisible(true);

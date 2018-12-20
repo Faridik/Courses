@@ -7,7 +7,6 @@ sqldb::sqldb()
     db.setPort(5433);
     db.setDatabaseName("KursBD");
     query = new QSqlQuery(db);
-	this->connect();
 }
 
 bool sqldb::connect()
@@ -15,6 +14,18 @@ bool sqldb::connect()
    db.setUserName("guest");
    db.setPassword("guest111");
    return db.open();
+}
+
+bool sqldb::connectFromUser()
+{
+	db.setUserName("user_def");
+	db.setPassword("user111");
+	return db.open();
+}
+
+void sqldb::disconnect()
+{
+	db.close();
 }
 
 bool sqldb::exec(QString q)

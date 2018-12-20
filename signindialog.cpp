@@ -9,7 +9,7 @@
 
 #include "registrationdialog.h"
 
-SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
+SignInDialog::SignInDialog(int *userid, QWidget *parent) : QDialog{parent}
 {
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
 
@@ -28,7 +28,7 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     // при нажатии на вход - пытаемся войти
     connect(signinButton, &QPushButton::clicked, this, [=]()
     {
-        signin(login->text(), pass->text());
+        signin(userid,login->text(), pass->text());
     });
 
     auto *registerButton = new QPushButton{tr("Регистрация")};
@@ -36,7 +36,7 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     // при нажатии на вход - пытаемся войти
     connect(registerButton, &QPushButton::clicked, this, [=]()
     {
-        RegistrationDialog dialog{this};
+        RegistrationDialog dialog{userid, this};
 
         if (dialog.exec() == QDialog::Accepted)
             this->accept();
@@ -67,13 +67,7 @@ SignInDialog::SignInDialog(QWidget *parent) : QDialog{parent}
     setModal(true);
 }
 
-void SignInDialog::setUserName(QString * un)
-{
-	username = un;
-}
-
-
-void SignInDialog::signin(const QString &login, const QString &pass)
+void SignInDialog::signin(int *userid, const QString &login, const QString &pass)
 {
     Q_UNUSED(login);
     Q_UNUSED(pass);
@@ -86,7 +80,7 @@ void SignInDialog::signin(const QString &login, const QString &pass)
 			== query.value("pass").toString().toUtf8())
 		{
 			// подключился
-			*username = login;
+			*userid = query.value("id").toInt();
 			accept();
 		}
 		else

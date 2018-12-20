@@ -10,10 +10,13 @@ class sqldb
     QSqlDatabase db;
     QSqlQuery *query;
 
-    bool connect();
+   
 
 public:
     sqldb();
+	bool connect();
+	bool connectFromUser();
+	void disconnect();
 	bool exec(QString q);
     ~sqldb();
 };

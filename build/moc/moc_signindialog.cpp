@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SignInDialog_t {
-    QByteArrayData data[5];
-    char stringdata0[32];
+    QByteArrayData data[7];
+    char stringdata0[44];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,14 @@ static const qt_meta_stringdata_SignInDialog_t qt_meta_stringdata_SignInDialog =
 QT_MOC_LITERAL(0, 0, 12), // "SignInDialog"
 QT_MOC_LITERAL(1, 13, 6), // "signin"
 QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 5), // "login"
-QT_MOC_LITERAL(4, 27, 4) // "pass"
+QT_MOC_LITERAL(3, 21, 4), // "int*"
+QT_MOC_LITERAL(4, 26, 6), // "userid"
+QT_MOC_LITERAL(5, 33, 5), // "login"
+QT_MOC_LITERAL(6, 39, 4) // "pass"
 
     },
-    "SignInDialog\0signin\0\0login\0pass"
+    "SignInDialog\0signin\0\0int*\0userid\0login\0"
+    "pass"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,10 +59,10 @@ static const uint qt_meta_data_SignInDialog[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   19,    2, 0x0a /* Public */,
+       1,    3,   19,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
+    QMetaType::Void, 0x80000000 | 3, QMetaType::QString, QMetaType::QString,    4,    5,    6,
 
        0        // eod
 };
@@ -70,7 +73,7 @@ void SignInDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         SignInDialog *_t = static_cast<SignInDialog *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->signin((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 0: _t->signin((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3]))); break;
         default: ;
         }
     }

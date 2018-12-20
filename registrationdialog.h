@@ -16,10 +16,9 @@ class RegistrationDialog : public QDialog
     };
 
 public:
-
-    RegistrationDialog(QWidget *parent = nullptr);
+    RegistrationDialog(int *userid, QWidget *parent = nullptr);
 
 public slots:
 
-    void registerNewUser(const User &user);
+    void registerNewUser(int *userid, const User &user);
 };

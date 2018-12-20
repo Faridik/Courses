@@ -8,7 +8,7 @@
 #include <QtSql/QSqlQuery>
 #include <Qtime>
 
-RegistrationDialog::RegistrationDialog(QWidget *parent) : QDialog{parent}
+RegistrationDialog::RegistrationDialog(int *userid, QWidget *parent) : QDialog{parent}
 {
     auto *vbox = new QBoxLayout{QBoxLayout::TopToBottom};
 
@@ -41,7 +41,7 @@ RegistrationDialog::RegistrationDialog(QWidget *parent) : QDialog{parent}
         user.email     = email->text();
         user.pass      = pass->text();
 
-        registerNewUser(user);
+        registerNewUser(userid, user);
     });
 
     auto *homeButton = new QPushButton{tr("Вернуться")};
@@ -70,38 +70,40 @@ RegistrationDialog::RegistrationDialog(QWidget *parent) : QDialog{parent}
     setMinimumSize(480, 360);
 }
 
-void RegistrationDialog::registerNewUser(const RegistrationDialog::User &user)
+void RegistrationDialog::registerNewUser(int *userid, const RegistrationDialog::User &user)
 {
-    Q_UNUSED(user);
+	Q_UNUSED(user);
 
 	//проверка на правильность введённого
 
 	//проверка на существование такого логина
-	
-	qsrand(QTime::currentTime().msec());
-	QSqlQuery query;
-	QString salt = "\0";
-	for (int i = 0; i < 5 + qrand() % 6; ++i)
-		salt += QChar(33 + qrand() % 94);
-	QString pass = user.pass + salt;
-	query.exec(QString("INSERT INTO users_con (login, pass, email, salt) VALUES ('") +
-		user.login + QString("', '") +
-		QCryptographicHash::hash(pass.toUtf8(), QCryptographicHash::Sha256).toHex() +
-		QString("', '") + user.email +
-		QString("', '") + salt + QString("')"));
+	{
+		qsrand(QTime::currentTime().msec());
 
-	//insert в users
-	//туда же время
 
-    auto success = true;
+		QString salt = "\0";
+		for (int i = 0; i < 5 + qrand() % 6; ++i)
+			salt += QChar(33 + qrand() % 94);
+		QString pass = user.pass + salt;
 
-    if (success)
-    {
-        /// TODO - сигнализируем пользователю
-        accept();
-    }
-    else
-    {
-        /// TODO - сигнализируем пользователю, что он не прав
-    }
+		QSqlQuery query;
+		query.exec(QString("INSERT INTO users_con (login, pass, salt) VALUES ('") +
+			user.login + QString("', '") +
+			QCryptographicHash::hash(pass.toUtf8(), QCryptographicHash::Sha256).toHex() +
+			QString("', '") + salt + QString("')"));
+
+		query.exec(QString("SELECT id FROM users_con WHERE login = '") + user.login + QString("'"));
+		query.next();
+		*userid = query.value(0).toInt();
+
+
+		query.exec(QString("INSERT INTO users (id, firstname, lastname, creationdate, email) VALUES (") +
+			QString::number(*userid) + QString(", '") +
+			user.firstName + QString("', '") +
+			user.lastName + QString("', current_timestamp, '") +
+			user.email + QString("')"));
+
+		accept();
+	}
+	//insert в users время регистрации
 }
